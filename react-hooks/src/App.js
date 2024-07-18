@@ -1,16 +1,33 @@
 import { useState } from "react";
 
+const content = [
+  {
+    tab: "Section 1",
+    content: "I'm the content of the Section 1",
+  },
+  {
+    tab: "Section 2",
+    content: "I'm the content of the Section 2",
+  },
+];
+const useTabs = (initialTab, allTabs) => {
+  const [currentIndex, setCurrentIndex] = useState(initialTab);
+  if (!allTabs || !Array.isArray(allTabs)) {
+    return;
+  }
+  return {
+    currentItem: allTabs[currentIndex],
+    changeItem: setCurrentIndex
+  };
+};
 function App() {
-  const [item, setItem] = useState(1);
-  const incrementItem = () => setItem(item + 1);
-  const decrementItem = () => setItem(item - 1);
+  const { currentItem, changeItem } = useTabs(0, content);
   return (
     <div>
-      <h1>hello {item}</h1>
-      <h2>Start editing to see some magic happen!</h2>
-      <button onClick={incrementItem}>increment</button>
-      <button onClick={decrementItem}>decrement</button>
-
+      {content.map((section, index) => (
+        <button onClick={() => changeItem(index)}>{section.tab}</button>
+      ))}
+      <div>{currentItem.content}</div>
     </div>
   );
 }

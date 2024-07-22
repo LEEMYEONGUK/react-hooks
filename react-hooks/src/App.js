@@ -1,21 +1,31 @@
 import { useEffect, useState } from "react";
 
-const useTitle = (initialTitle) => {
-  const [title, setTitle] = useState(initialTitle);
-  const updateTitle = () => {
-    const htmlTitle = document.querySelector("title");
-    htmlTitle.innerText = title;
-  };
-  useEffect(updateTitle, [title]);
-  return setTitle;
+const useClick = (onclick) => {
+  if (typeof onClick !== "function") {
+    return;
+  }
+  const element = useRef();
+  useEffect(() => {
+    if (element.current) {
+      element.current.addEventListener("click", onClick);
+    }
+    return () => {
+      if (element.current) {
+        element.current.removeEventListenser("click", onclick);
+      }
+    };
+  }, []);
+  return element;
 };
 
 function App() {
-  const titleUpdater = useTitle("Loading...");
-  // setTimeout(() => titleUpdater("Home"), 5000);
+  const sayHello = () => console.log("say hello");
+  const title = useClick(sayHello);
+  setTimeout(() => console.log(potato), 5000);
   return (
     <div>
       <div>Hi</div>
+      <input ref={title} placeholder="la" />
     </div>
   );
 }

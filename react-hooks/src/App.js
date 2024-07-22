@@ -24,8 +24,7 @@ function App() {
   setTimeout(() => console.log(potato), 5000);
   return (
     <div>
-      <div>Hi</div>
-      <input ref={title} placeholder="la" />
+      <h1 ref={title} >Hi</h1>
     </div>
   );
 }

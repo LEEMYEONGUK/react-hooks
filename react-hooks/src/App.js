@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 
+
+
 function App() {
-  const { enablePrevent, disablePrevent } = usePreventLeave();
+  const begForLife = () => {
+    console.log("Pls don't leave");
+  };
+  useBeforeLeave(begForLife);
   return (
     <div>
-      <button onClick={enablePrevent}>Protect</button>
-      <button onClick={disablePrevent}>Unprotect</button>
+      <h1>Hello</h1>
     </div>
   );
 }

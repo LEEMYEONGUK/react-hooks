@@ -1,15 +1,12 @@
-import { useEffect, useState } from "react";
-
-
+import { useEffect, useState, useRef } from "react";
 
 function App() {
-  const begForLife = () => {
-    console.log("Pls don't leave");
-  };
-  useBeforeLeave(begForLife);
+  const fadeInH1 = useFadeIn(1, 2);
+  const fadeInP = useFadeIn(5, 10);
   return (
     <div>
-      <h1>Hello</h1>
+      <h1 {...fadeInH1}>Hello</h1>
+      <p {...fadeInP}>lalala...</p>
     </div>
   );
 }

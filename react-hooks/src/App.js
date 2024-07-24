@@ -1,14 +1,32 @@
 import { useEffect, useState, useRef } from "react";
 
+const useNetwork = (onChange) => {
+  const [status, setStatus] = useState(navigator.onLine);
+  const handleChange = () => {
+    if(typeof onChange === "function") {
+      onChange(navigator.onLine)
+    }
+    setStatus(navigator.onLine);
+  };
+  useEffect(() => {
+    window.addEventListener("online", handleChange);
+    window.addEventListener("offline", handleChange);
+    () => {
+      window.removeEventListener("online", handleChange);
+      window.removeEventListener("offline", handleChange);
+    };
+  }, []);
+  return status;
+};
+
 function App() {
-  const fadeInH1 = useFadeIn(1, 2);
-  const fadeInP = useFadeIn(5, 10);
-  return (
-    <div>
-      <h1 {...fadeInH1}>Hello</h1>
-      <p {...fadeInP}>lalala...</p>
-    </div>
-  );
+  const handleNetworkChange = (onLine) => {
+    console.log(onLine? "We just went online":"We are offline")
+  }
+  const onLine = useNetwork(handleNetworkChange)
+  return <div>
+    <h1>{onLine ? "OnLine":"Offline"}</h1>
+  </div>;
 }
 
 export default App;

@@ -1,26 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
-const useScroll = () => {
-  const [state, setState] = useState({
-    x: 0,
-    y: 0,
-  });
-  const onScroll = () => {
-    setState({y:window.scrollY, x: window.scrollX})
-    console.log("y", window.scrollY, "x", window.scrollX)
-  }
-  useEffect(() => {
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll)
-  }, []);
-  return state;
+const useFullscreen = () => {
+  const element = useRef();
+  const triggerFull = () => {};
+  return element;
 };
-
+  
 function App() {
-  const { y } = useScroll();
+  const fullScrEl = useFullscreen();
   return (
     <div style={{ height: "1000vh" }}>
-      <h1 style={{ position: "fixed", color: y > 100 ? "red" : "blue" }}>Hi</h1>
+      <img ref={fullScrEl} src="https://i.ibb.co/R6RwNxx/grape.jpg" alt="grape" width="250" />
+      <button>Make fullscreen</button>
     </div>
   );
 }

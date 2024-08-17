@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 
-
-
 function App() {
   const begForLife = () => {
     console.log("Pls don't leave");
